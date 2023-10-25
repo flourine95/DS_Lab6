@@ -16,6 +16,7 @@ public class MyArrayList<E> {
         this.elements = (E[]) new Object[capacity];
     }
 
+
     // creates an array of double-size if the array of elements is full
     public void growSize() {
         if (this.elements.length == this.size) {
@@ -158,10 +159,18 @@ public class MyArrayList<E> {
     }
 
     // It is used to sort the elements of the list on the basis of specified comparator.
-
     public void sort(Comparator<E> c) {
-        E[] temp = this.elements.clone();
-        Arrays.sort(temp, c);
-        System.arraycopy(temp, 0, this.elements, 0, this.size);
+        if (size == 0) {
+            return;
+        }
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = i + 1; j < size; j++) {
+                if (c.compare(elements[i], elements[j]) > 0) {
+                    E temp = elements[i];
+                    elements[i] = elements[j];
+                    elements[j] = temp;
+                }
+            }
+        }
     }
 }
